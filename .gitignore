@@ -1,10 +1,5 @@
 # Object files
 *.o
-*.ko
-
-# Libraries
-*.lib
-*.a
 
 # Shared objects (inc. Windows DLLs)
 *.dll
@@ -16,3 +11,37 @@
 *.exe
 *.out
 *.app
+*.class
+*.pyc
+*.bit
+
+#ISE generated files
+*.xise
+*.gise
+*.ini
+*.wdb
+*.prj
+*.xmgs
+*.cmd
+
+#Package files#
+*.jar
+*.ear
+*.war
+
+#the log files just will be commited if necessary#
+*.log
+
+#Configuration Files#
+*.conf
+*.dat
+*.cfg
+
+#IDE's conf files#
+*.project
+*.idea
+nbproject/
+ipcore_dir/
+iseconfig/
+isim/
+_xmsgs/
