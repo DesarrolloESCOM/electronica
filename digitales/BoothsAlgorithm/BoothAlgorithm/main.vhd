@@ -5,44 +5,41 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use ieee.numeric_std.all;
 entity main is 
 	port (
-	sal: inout std_logic_vector (7 downto 0):="11111111";
+	sal: inout std_logic_vector (7 downto 0);
 	CLK : in std_logic;
 	multiplicando :  inout  std_logic_vector(7 downto 0) := "00000100";
-	aux2 : inout std_logic;
-	arreglo : inout std_logic_vector (7 downto 0);
-	aux3 : inout std_logic;
+	arreglo : inout std_logic_vector (7 downto 0):="00000000";
 	multiplicador :  inout std_logic_vector(7 downto 0) := "00000010";
-	test :  inout std_logic_vector(7 downto 0));
+	test :  inout std_logic_vector(7 downto 0):="00000000");
 end main;
 architecture Behavioral of main is
 signal I : natural := 0;
+signal auxArray : std_logic_vector(7 downto 0) := "00000000";
+function reverse_any_vector (a: in std_logic_vector)
+return std_logic_vector is
+  variable result: std_logic_vector(a'RANGE);
+  alias aa: std_logic_vector(a'REVERSE_RANGE) is a;
+begin
+  for i in aa'RANGE loop
+    result(i) := aa(i);
+  end loop;
+  return result;
+end; -- function reverse_any_vector
 begin
 	process(CLK)
 	begin
 		if CLK'event and CLK = '1' then
-			for X in 0 to 7 loop
-				I <= X;
-					if '1' = multiplicador(X) then
-						test <= multiplicando + arreglo;
-						arreglo <= test ;
-					end if;						
-					sal(0) <= sal(1);
-					sal(1) <= sal(2);
-					sal(2) <= sal(3);
-					sal(3) <= sal(4);
-					sal(4) <= sal(5);
-					sal(5) <= sal(6);
-					sal(6) <= sal(7);
-					sal(7) <= arreglo(0);
-					arreglo(0) <= arreglo(1);
-					arreglo(1) <= arreglo(2);
-					arreglo(2) <= arreglo(3);
-					arreglo(3) <= arreglo(4);
-					arreglo(4) <= arreglo(5);
-					arreglo(5) <= arreglo(6);
-					arreglo(6) <= arreglo(7);
-					arreglo(7) <= '0';
-			end loop;
+			if I <= 7 then
+				if '1' = multiplicador(I) then
+					test <= multiplicando + arreglo;
+					arreglo <= test(7 downto 0);
+				end if;
+				--sal <= reverse_any_vector(sal);
+				--arreglo <= reverse_any_vector(arreglo);
+				sal <= sal(6 downto 0)&arreglo(0);
+				arreglo <= arreglo(6 downto 0) & '0';
+			end if;
+			I <= I + 1;
 		end if;
 	end process;
 end Behavioral;
