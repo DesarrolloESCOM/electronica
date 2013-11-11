@@ -7,9 +7,9 @@ entity main is
 	port (
 	sal: inout std_logic_vector (7 downto 0);
 	CLK : in std_logic;
-	multiplicando :  inout  std_logic_vector(7 downto 0) := "00000100";
+	multiplicando :  inout  std_logic_vector(7 downto 0) := "00000111";
 	arreglo : inout std_logic_vector (7 downto 0):="00000000";
-	multiplicador :  inout std_logic_vector(7 downto 0) := "00000010";
+	multiplicador :  inout std_logic_vector(7 downto 0) := "00000011";
 	test :  inout std_logic_vector(7 downto 0):="00000000");
 end main;
 architecture Behavioral of main is
@@ -31,11 +31,12 @@ begin
 		if CLK'event and CLK = '1' then
 			if I <= 7 then
 				if '1' = multiplicador(I) then
+					--arreglo <= reverse_any_vector(arreglo)(7 downto 0);
 					test <= multiplicando + arreglo;
 					arreglo <= test(7 downto 0);
 				end if;
-				--sal <= reverse_any_vector(sal);
-				--arreglo <= reverse_any_vector(arreglo);
+				--sal <= reverse_any_vector(sal)(7 downto 0);
+				--arreglo <= reverse_any_vector(arreglo)(7 downto 0);
 				sal <= sal(6 downto 0)&arreglo(0);
 				arreglo <= arreglo(6 downto 0) & '0';
 			end if;

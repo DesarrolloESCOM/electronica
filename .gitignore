@@ -23,6 +23,7 @@
 *.prj
 *.xmgs
 *.cmd
+*.xmsgs
 
 #Package files#
 *.jar
